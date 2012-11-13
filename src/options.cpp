@@ -71,7 +71,7 @@ int zmq::options_t::setsockopt (int option_, const void *optval_,
         }
         //  Check that SWAP directory (.) is writable
         struct stat stat_buf;
-#if (ZMQ_HAVE_ANDROID || ZMQ_HAVE_LINUX)
+#if defined ZMQ_HAVE_ANDROID || defined ZMQ_HAVE_LINUX
             if (stat (".", &stat_buf) || ((stat_buf.st_mode & S_IWUSR) == 0)) {
 #else
             if (stat (".", &stat_buf) || ((stat_buf.st_mode & S_IWRITE) == 0)) {
