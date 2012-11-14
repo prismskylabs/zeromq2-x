@@ -11,6 +11,7 @@ if(APPLE)
     add_definitions(-D_DARWIN_C_SOURCE)
 elseif(WIN32)
     set(ZMQ_HAVE_WINDOWS 1)
+    set(link_libraries rpcrt4.lib ws2_32.lib)
     add_definitions(-DDLL_EXPORT -DFD_SETSIZE=1024 -DWIN32)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
     set(ZMQ_HAVE_LINUX 1)
@@ -113,9 +114,7 @@ configure_file(cmake/platform.hpp.in platform.hpp)
 # output
 
 add_library(libzmq SHARED ${sources})
-if(WIN32)
-    target_link_libraries(libzmq ws2_32.lib rpcrt4.lib)
-endif()
+target_link_libraries(libzmq ${link_libraries})
 
 set(ZEROMQ_INCLUDE_DIRS ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR}/include)
 set(ZEROMQ_LIBRARIES libzmq)
