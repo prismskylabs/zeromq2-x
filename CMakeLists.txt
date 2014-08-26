@@ -5,10 +5,6 @@ project(ZeroMQ)
 
 option(WITH_OPENPGM "Build with support for OpenPGM" OFF)
 
-if(APPLE)
-  option(ZMQ_BUILD_FRAMEWORK "Build as OS X framework" ON)
-endif()
-
 if(WIN32)
 option(WITH_TWEETNACL "Build with tweetnacl" OFF)
 else()
@@ -842,3 +838,8 @@ if(MSVC_VERSION EQUAL 1600)
     file(APPEND "${ZMQ_SLN_FILENAME}" "\n# This should be regenerated!\n")
   endif()
 endif()
+
+set(ZEROMQ_INCLUDE_DIRS ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR}/include)
+set(ZEROMQ_LIBRARIES libzmq)
+configure_file(
+    cmake/ZeroMQConfig.cmake.in ${CMAKE_BINARY_DIR}/ZeroMQConfig.cmake @ONLY)
