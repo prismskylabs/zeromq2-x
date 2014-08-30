@@ -33,11 +33,6 @@
 #include <string>
 #include <exception>
 
-typedef struct {
-    uint16_t event;  // id of the event as bitfield
-    int32_t  value ; // value is either error code, fd or reconnect interval
-} zmq_event_t;
-
 //  Detect whether the compiler supports C++11 rvalue references.
 #if (defined(__GNUC__) && (__GNUC__ > 4 || \
       (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && \
