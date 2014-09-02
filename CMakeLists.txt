@@ -399,4 +399,10 @@ cpack_add_install_type (MinInstall
 	DISPLAY_NAME "Minimal install, runtime only"
 )
 
+set(ZEROMQ_INCLUDE_DIRS ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR}/include)
+set(ZEROMQ_LIBRARIES libzmq)
+configure_file(
+    cmake/ZeroMQConfig.cmake.in ${CMAKE_BINARY_DIR}/ZeroMQConfig.cmake @ONLY)
+
+
 # end of file
