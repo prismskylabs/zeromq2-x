@@ -81,14 +81,25 @@ const char *zmq::uuid_t::to_string ()
 #elif defined ZMQ_HAVE_LINUX || defined ZMQ_HAVE_SOLARIS ||\
       defined ZMQ_HAVE_OSX || defined ZMQ_HAVE_CYGWIN
 
+#ifdef EMBEDDED
+#include <kashmir/uuid.h>
+#include <kashmir/devrand.h>
+#else
 #include <uuid/uuid.h>
+#endif
 
 zmq::uuid_t::uuid_t ()
 {
+#ifdef EMBEDDED
+    static kashmir::system::DevRand devrandom;
+    devrandom >> uuid;
+    memcpy(string_buf, &uuid, uuid_string_len + 1);
+#else
     uuid_generate (uuid);
     uuid_unparse (uuid, string_buf);
 
     create_blob ();
+#endif
 }
 
 zmq::uuid_t::~uuid_t ()
