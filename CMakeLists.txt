@@ -120,7 +120,11 @@ configure_file(cmake/platform.hpp.in platform.hpp)
 #-----------------------------------------------------------------------------
 # output
 
-add_library(libzmq SHARED ${sources})
+if(EMBEDDED)
+    add_library(libzmq STATIC ${sources})
+else()
+    add_library(libzmq SHARED ${sources})
+endif()
 target_link_libraries(libzmq ${link_libraries})
 
 set(ZEROMQ_INCLUDE_DIRS ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR}/include)
